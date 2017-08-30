@@ -4,7 +4,7 @@ Game.MapSansouire = function(game) {
 
 let field = new Field("Sansouire", {
     "surface": 100, 
-    "temperature": -10, 
+    "temperature": -    10, 
     "water": 100, 
     "sunshine": 100,
     "season": "winter"})
