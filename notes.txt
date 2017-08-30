@@ -1,0 +1,3 @@
+les plantes ont une fonction qui leur permet de voir le nom l'event 
+qui s'applique et agir en conséquence, car chaque plante a des 
+réactions différentes
