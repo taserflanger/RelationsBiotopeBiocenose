@@ -21,9 +21,7 @@ let toMap = [
         "mosquito_eradication",  // Mosquito_eradication: no effect on field, just on plants
         // there is no effect, condition: spring
         {}, // Plants are suppose to handle this as a global growing decrease (except for obione)
-        [new condition("season", (prop) => {
-            if (prop == "spring") {return true}return false
-        })]
+        [new condition("season", p => p == "spring")]
 
     ],
     [
@@ -33,6 +31,15 @@ let toMap = [
             "water": +40
         },
         [new condition("temperature", p => p > 25)]
+    ],
+    [
+        "heat_wave",
+        {
+            "sunshine": +60,
+            "salinity": -20,
+            "water": +40
+        },
+        [new condition("temerature"), p => p > 35]
     ]
 ]
 

@@ -23,7 +23,8 @@ let plant2 = new Plant("Soude", {
     "other": {"salt_extraction": true, "viral_resistance": false, "supports_trampling": true}
 })
 
-// console.log(events)
+// events array is defined in the corresponding Events File ad global scope
+// The corresponding file has to load before this one
 field.applyEvent(events[0])
 console.log(field.properties.sunshine)
 
