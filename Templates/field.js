@@ -1,13 +1,18 @@
 class Field {
-    constructor(name, properties) {
+    constructor(name, properties, plants) {
         if (typeof name != "string") {
             throw "Name of field has to be string";
         }
         else if (typeof properties != "object") {
             throw "Properties of field must be inside an object";
         }
-        this.name = name;
-        this.properties = properties;
+        else if (typeof plants != "object") {
+            throw "Plants of field must be an array of plants"
+        }
+        this.name = name
+        this.properties = properties
+        this.plants = plants
+        this.grid = new Grid(10)
     }
 
     checkEvent(event) {
@@ -15,7 +20,10 @@ class Field {
         let apply = true
         for (prop in this.properties) {
             for (cond of event.conditions) {
+                // for each prop we check if there is a condition with the same name
                 if (prop == cond.name) {
+                    // the condition has got name and func(prop)
+                    // 
                     if (!(cond.func(this.properties[prop]))) {
                         apply = false
                         print("event cannot apply")
@@ -36,6 +44,9 @@ class Field {
 
                     }
                 }
+            }
+            for (plant of this.plants) {
+                plant.applyEvent(event)
             }
         }
     }
