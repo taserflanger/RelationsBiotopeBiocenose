@@ -10,7 +10,8 @@ let plant1 = new Plant("Salicorne", {
     "other": {"salt_extraction": false, "viral_resistance": false, "supports_trampling": true}
 }, {
     "salinity": 50,
-    "water": 50
+    "water": 50,
+    "sunshine": 50
 })
 let plant2 = new Plant("Soude", {
     "sun": -1,
@@ -21,6 +22,7 @@ let plant2 = new Plant("Soude", {
 }, {
     "salinity": 20,
     "water": 80,
+    "sunshine": 50
 })
 let field = new Field("Sansouire", {
     "surface": 100, 

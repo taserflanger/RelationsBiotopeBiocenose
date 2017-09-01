@@ -4,7 +4,7 @@
   "description": "ecosystem",
   "main": "./Loading/index.js",
   "scripts": {
-    "test": "http-server ."
+    "test": "lite-server --port 10001"
   },
   "author": "Silene, Pascal",
   "license": "GPL-3.0",

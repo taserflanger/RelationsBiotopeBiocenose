@@ -8,7 +8,7 @@ Game.Boot.prototype = {
         this.stage.disableVisibilityChange = false // Game Pauses when screen left
     },
     preload: function() {
-        this.load.image('phaserImage', './assets/phaser.png')
+        this.load.image('phaserImage', './assets/preloader.png')
     },
     create: function() {
         this.state.start('Preloader')

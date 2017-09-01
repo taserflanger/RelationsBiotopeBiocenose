@@ -13,6 +13,7 @@ class Field {
         this.properties = properties
         this.plants = plants
         this.grid = new Grid(10)
+        this.grid.setProps(0, 0, {"plant": 1})
     }
 
     checkEvent(event) {
@@ -34,7 +35,7 @@ class Field {
         return apply
     }
     applyEvent(event) {
-        let prop, mod
+        let prop, mod, plant
         let apply = this.checkEvent(event)
         if (apply) {
             for (prop in this.properties) {
