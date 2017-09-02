@@ -2,9 +2,10 @@
   "name": "ecosystem",
   "version": "1.0.0",
   "description": "ecosystem",
-  "main": "./Loading/index.js",
+  "main": "./Templates/grid.js",
   "scripts": {
-    "test": "lite-server --port 10001"
+    "test": "lite-server --port 5858",
+    "debug": "node --inspector --debug-brk Template/grid.js"
   },
   "author": "Silene, Pascal",
   "license": "GPL-3.0",
