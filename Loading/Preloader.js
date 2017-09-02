@@ -8,6 +8,7 @@ Game.Preloader.prototype = {
         // Load all assets
         this.load.spritesheet('buttons', './assets/buttons.png', 208, 59)
         this.load.image('SansouireField', 'assets/MapSansouire.png')
+        this.load.image('salicorne', 'assets/seamless_salicorne.jpg')
     },
     create: function() {
         this.phaserImage = this.add.sprite(this.world.centerX,

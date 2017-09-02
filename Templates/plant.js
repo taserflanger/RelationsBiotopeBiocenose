@@ -1,5 +1,5 @@
 class Plant {
-    constructor(name, properties, ideal_conditions) {
+    constructor(name, properties, ideal_conditions, texturePath) {
         if (typeof name != "string") {
             throw "Name of plant has to be string";
         }
@@ -12,6 +12,7 @@ class Plant {
         this.name = name
         this.properties = properties
         this.ideal_conditions = ideal_conditions
+        this.texturePath = texturePath
     }
     applyEvent(event) {
         let prop, mod

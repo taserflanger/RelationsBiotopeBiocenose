@@ -12,7 +12,7 @@ class Field {
         this.name = name
         this.properties = properties
         this.plants = plants
-        this.grid = new Grid(10)
+        this.grid = new Grid(10, [this.plants[0].texturePath, this.plants[1].texturePath])
         this.grid.setProps(0, 0, {"plant": 1})
     }
 

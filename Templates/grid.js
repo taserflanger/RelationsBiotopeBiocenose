@@ -1,5 +1,7 @@
 class Grid {
-    constructor(size) {
+    constructor(size, plantsPaths) {
+        this.plantsPaths = plantsPaths
+        // Array of plantPath of field plants
         this.size = size
         // Number of line/columns
         this.case_size = 20
@@ -9,17 +11,19 @@ class Grid {
         // Creates Rectangles Origins => Array of coordinates [[x, y], ...]
         this.propsList = new Array(Math.pow(this.size, 2))
         for (let i = 0; i < this.propsList.length; i++) {
-            this.propsList[i] = {"plant":0, "salinity": Math.random()*100, "water": Math.random()*100, "sunshine": Math.random()*100}
+            this.propsList[i] = {"salinity": Math.random()*100, "water": Math.random()*100, "sunshine": Math.random()*100}
+            // this.propsList[i].plant = 0
         }
         // Object of props for each case [{...}, {...}]
-        this.textures = ["plant", "salinity", "sunshine", "water"]
+        this.texturesPaths = ["salinity", "sunshine", "water"]
         // Path of textures
-        this.texturesRanges = {"plant": [0, 1],"salinity": [0, 100], "sunshine": [0, 100], "water": [0, 100]}
+        this.texturesRanges = {"salinity": [0, 100], "sunshine": [0, 100], "water": [0, 100]}
         // Range for each prop {"prop": [min, max]}
+        this.textures = []
     }
     draw() {
         // Still to make
-        return null
+        
     }
 
     setRects() {

@@ -12,7 +12,7 @@ let plant1 = new Plant("Salicorne", {
     "salinity": 50,
     "water": 50,
     "sunshine": 50
-})
+}, "./assets/seamless-salicorne.jpg")
 let plant2 = new Plant("Soude", {
     "sun": -1,
     "cold_resistance": -1,
@@ -23,7 +23,7 @@ let plant2 = new Plant("Soude", {
     "salinity": 20,
     "water": 80,
     "sunshine": 50
-})
+}, "")
 let field = new Field("Sansouire", {
     "surface": 100, 
     "temperature": -    10, 
@@ -41,6 +41,10 @@ Game.MapSansouire.prototype = {
     create:function() {
         this.stage.backgroundColor = '#e9ffe8'
         let map = this.add.sprite(0, 0, 'SansouireField')
+        for (let pos of field.grid.rectanglesOrigins) {
+            this.add.sprite(pos[0], pos[1], "salicorne")
+            // console.log(pos)
+        }
     },
     update: function() {}
 
