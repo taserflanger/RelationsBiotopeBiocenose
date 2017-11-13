@@ -20,7 +20,7 @@ winner = False
 
 
 croissanceGenerale = random.randint(-10, 10)
-epsilon = 100
+epsilon = 10
 
 # Main Loop
 while not winner:
@@ -51,8 +51,8 @@ while not winner:
 
     fieldAttributes["temp"], fieldAttributes["sun"], fieldAttributes["water"], croissanceGenerale = event(temp, sun, water, croissanceGenerale)
 
-    croissanceA = calculateCroissance(paramsA, croissanceGenerale)
-    croissanceB = calculateCroissance(paramsB, croissanceGenerale)
+    croissanceA = calculateCroissance(paramsA, fieldAttributes, croissanceGenerale, mapRange)
+    croissanceB = calculateCroissance(paramsB, fieldAttributes, croissanceGenerale, mapRange)
 
     print("Plante A grandit de " + str(round(croissanceA, 2)))
     print("Taille à rajouter: " + str(round(mapRange(croissanceA, 0, 100, 0, 4))))

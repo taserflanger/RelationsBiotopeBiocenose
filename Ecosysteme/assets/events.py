@@ -1,3 +1,5 @@
+import random
+
 def snow(temp, sun, water, croissance):
     print("Il neige... Il fait froid, on ne voit pas le soleil!\n")
     temp = 0 - random.randint(0, 3)

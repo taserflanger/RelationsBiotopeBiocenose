@@ -1,7 +1,7 @@
 def mapRange(value, leftMin, leftMax, rightMin, rightMax):
-    if value < rightMin:
+    if value < leftMin:
         return rightMin
-    if value > rightMax:
+    if value > leftMax:
         return rightMax
     # Figure out how 'wide' each range is
     leftSpan = leftMax - leftMin

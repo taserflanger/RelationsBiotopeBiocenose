@@ -1,4 +1,4 @@
-def calculateCroissance(plantAttributes, croissanceGenerale):
+def calculateCroissance(plantAttributes, fieldAttributes, croissanceGenerale, mapRange, name):
     croissance = 0
     for key in fieldAttributes.keys():
         difference = abs(fieldAttributes[key] - plantAttributes[key])
