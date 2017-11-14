@@ -1,4 +1,5 @@
-"""Assets for Ecosysteme"""
+"""Game Mechanics"""
+
 __all__ = []
 
 import pkgutil
@@ -13,5 +14,3 @@ for loader, name, is_pkg in pkgutil.walk_packages(__path__):
 
         globals()[name] = value
         __all__.append(name)
-
-__all__.append("mechanics")
