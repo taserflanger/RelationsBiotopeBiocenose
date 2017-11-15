@@ -1,4 +1,7 @@
+"""MapRange: module containing mapRange def"""
 def mapRange(value, leftMin, leftMax, rightMin, rightMax):
+    """Returns a float given a *value* mapped and constrained between
+    the value's min and max and the output min and max."""
     if value < leftMin:
         return rightMin
     if value > leftMax:

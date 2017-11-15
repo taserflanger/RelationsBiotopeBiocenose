@@ -1,7 +1,10 @@
+"""Definition for gameplay functions"""
+
 import random
 from assets.mechanics.mapRange import mapRange
 
 def testInterval(ref, val, epsilon):
+    """Tests if the value *var* variates too much from a reference value"""
     if val < ref - epsilon:
         print("Too low, must be between {a} and {b}".format(a = ref - epsilon, b = ref + epsilon))
         return False
@@ -12,11 +15,14 @@ def testInterval(ref, val, epsilon):
         return True
 
 def printFieldAttributes(fieldAttributes, croissanceGenerale):
+    """Prints all the field characteristics"""
     [print(key, fieldAttributes[key], sep=":") for key in fieldAttributes.keys()]
     print("Croissance Générale: " + str(croissanceGenerale) + "\n")
 
 
 def askParameters(params, epsilon):
+    """Asks for new paramters given a plant's 
+    parameter dict *params* and a variance value *epsilon*"""
     for key in params.keys():
         test = False
         while not test:
@@ -27,6 +33,7 @@ def askParameters(params, epsilon):
 
 
 def testWinner(surfaceA, surfaceB):
+    """Tests and prints out if there is a winner"""
     if surfaceA > 100 and surfaceB > 100:
         if surfaceA > surfaceB:
             print("Winner is plant A, {surfaceA} to {surfaceB}...".format(surfaceA=surfaceA, surfaceB=surfaceB))
@@ -47,18 +54,29 @@ def testWinner(surfaceA, surfaceB):
 #|-------------------|
 
 def newRound(fieldAttributes, croissanceGenerale, paramsA, paramsB, epsilon, season):
+    """Asks for each plant's (paramsA and paramsB) parameter, and print's out
+    the field attributes again."""
+
     print("\n")
+    #Season
     print("It's {season}".format(season=season))
+
+    #Field
     print("\nField Attributes:\n")
     printFieldAttributes(fieldAttributes, croissanceGenerale)
-    print("Sansouire's new parameters\n")
+
+    #plantA
+    print("Salicorne's new parameters\n")
     askParameters(paramsA, epsilon)
 
+    # plantB
     print("\nObione's new parameters\n")
     askParameters(paramsB, epsilon)
 
 
 def applyEvent(events, fieldAttributes, croissanceGenerale, season):
+    """Tests *events* eligible to *season* and chooses a random season,
+    applying the effects to the *fieldAttributes* and the croissanceGenerale"""
     
     possibleEvents = [event for event in events if season in event.seasons]
     event = random.choice(possibleEvents)
@@ -72,7 +90,9 @@ def applyEvent(events, fieldAttributes, croissanceGenerale, season):
 
 
 def printGrowing(croissanceA, croissanceB):
-    print("Sansouire grandit de " + str(round(croissanceA, 2)))
+    """Prints out how much plant did grow and which case to add (int)"""
+
+    print("Salicorne grandit de " + str(round(croissanceA, 2)))
     print("Taille à rajouter: " + str(round(mapRange(croissanceA, 0, 100, 0, 4))))
 
     print("\nObione grandit de " + str(round(croissanceB, 2)))
@@ -81,6 +101,7 @@ def printGrowing(croissanceA, croissanceB):
 
 
 def initParams(fieldAttributes):
+    """Return new plantParameters given the *fieldAttributes*"""
     params = {}
     for key in fieldAttributes.keys():
         params[key] = 0

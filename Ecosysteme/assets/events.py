@@ -1,3 +1,4 @@
+"""Definition for all event functions"""
 import random
 
 def snow(fieldAttributes, croissance):
@@ -42,25 +43,24 @@ def gathering(fieldAttributes, croissance):
     fieldAttributes['sun'] += random.randint(0, 10)
     croissance -= random.randint(0, 5)
     return fieldAttributes, croissance
-overflowing.seasons = ['spring', 'summer']
+gathering.seasons = ['spring', 'summer']
 
 def trampling(fieldAttributes, croissance):
     print("Des promeneurs viennent se promener dans la sansouïre. \n")
     fieldAttributes['sun'] += random.randint(0, 10)
     croissance -= random.randint(0, 15)
     return fieldAttributes, croissance
-overflowing.seasons = ['spring', 'summer']
+trampling.seasons = ['spring', 'summer']
 
 def pollution(fieldAttributes, croissance):
     print("Les courants amènes les déchets de la ville \n Le sol va être pollué... \n")
     croissance -= random.randint(0, 15)
     return fieldAttributes, croissance
-overflowing.seasons = ['spring', 'summer']
+pollution.seasons = ['spring', 'summer']
 
 def southernWind(fieldAttributes, croissance):
     print("Le vent souffle fort! C'est le grec! \n l'eau salée rentre dans les étangs \n")
-    fieldAttributes['wind'] += random.randint(0, 10)
     fieldAttributes['salinity'] += 15
     return fieldAttributes, croissance
-overflowing.seasons = ['spring', 'summer', 'automn', 'winter']
+southernWind.seasons = ['spring', 'summer', 'automn', 'winter']
 

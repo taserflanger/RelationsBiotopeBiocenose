@@ -1,3 +1,5 @@
+"""Returns a float taking in count the plant and field and the croissance Generale"""
+
 def calculateCroissance(plantAttributes, fieldAttributes, croissanceGenerale, mapRange, name):
     croissance = 0
     for key in fieldAttributes.keys():
@@ -8,7 +10,7 @@ def calculateCroissance(plantAttributes, fieldAttributes, croissanceGenerale, ma
             if key == 'temp':
                 difference *= 1.2
         if name == 'obione':
-            if key == 'salinity':
+            if key == 'temp':
                 difference *= 1.1
             if key == 'water':
                 difference *= 0.9
