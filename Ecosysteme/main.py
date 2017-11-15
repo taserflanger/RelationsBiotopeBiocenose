@@ -1,8 +1,8 @@
-"""Ecosystem Python Version"""
+"""Ecosystem: Python Version"""
 import os
 import random
 from itertools import cycle
-from assets import events, game_play, calculate_croissance
+from assets import events, game_play, mechanics
 
 #Initialise les surfaces
 SURFACE_A = 0
@@ -10,8 +10,8 @@ SURFACE_B = 0
 
 #Initialise les caractéristiques du sansouire et des plantes
 FIELD_ATTRIBUTES = {'temp': 10, 'sun': 20, 'water': 50, 'salinity': 50}
-PARAMS_A = game_play.init_params(FIELD_ATTRIBUTES)
-PARAMS_B = game_play.init_params(FIELD_ATTRIBUTES)
+PARAMS_A = mechanics.init_params(FIELD_ATTRIBUTES)
+PARAMS_B = mechanics.init_params(FIELD_ATTRIBUTES)
 PLANTS = {"Salicorne": 0, "Obione": 0}
 
 #Initialise un générateur de saisons
@@ -40,12 +40,12 @@ while not IS_WINNER:
     FIELD_ATTRIBUTES, PLANTS = game_play.apply_event(EVENTS_LIST, FIELD_ATTRIBUTES, PLANTS, SEASON)
 
     #calcule les croissances des plantes
-    CROISSANCE_A = calculate_croissance(
+    CROISSANCE_A = mechanics.calculate_croissance(
         PARAMS_A,
         FIELD_ATTRIBUTES,
         PLANTS[list(PLANTS.keys())[0]],
         list(PLANTS.keys())[0])
-    CROISSANCE_B = calculate_croissance(
+    CROISSANCE_B = mechanics.calculate_croissance(
         PARAMS_B,
         FIELD_ATTRIBUTES,
         PLANTS[list(PLANTS.keys())[1]],
@@ -66,6 +66,6 @@ while not IS_WINNER:
 
     #Clear + teste si il y a un gagnant + change le nombre de tours
     os.system('cls')
-    IS_WINNER = game_play.test_winner(SURFACE_A, SURFACE_B)
+    IS_WINNER = mechanics.test_winner(SURFACE_A, SURFACE_B)
     TURN += 1
     
