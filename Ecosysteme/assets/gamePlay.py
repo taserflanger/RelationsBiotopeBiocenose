@@ -14,10 +14,11 @@ def testInterval(ref, val, epsilon):
     else:
         return True
 
-def printFieldAttributes(fieldAttributes, croissanceGenerale):
+def printFieldAttributes(fieldAttributes, plants):
     """Prints all the field characteristics"""
     [print(key, fieldAttributes[key], sep=":") for key in fieldAttributes.keys()]
-    print("Croissance Générale: " + str(croissanceGenerale) + "\n")
+    print("\nCroissance des plantes: \n")
+    [print(key, plants[key], sep=': ') for key in plants]
 
 
 def askParameters(params, epsilon):
@@ -53,7 +54,7 @@ def testWinner(surfaceA, surfaceB):
 #|GamePlay functions |
 #|-------------------|
 
-def newRound(fieldAttributes, croissanceGenerale, paramsA, paramsB, epsilon, season):
+def newRound(fieldAttributes, plants, paramsA, paramsB, epsilon, season):
     """Asks for each plant's (paramsA and paramsB) parameter, and print's out
     the field attributes again."""
 
@@ -63,39 +64,40 @@ def newRound(fieldAttributes, croissanceGenerale, paramsA, paramsB, epsilon, sea
 
     #Field
     print("\nField Attributes:\n")
-    printFieldAttributes(fieldAttributes, croissanceGenerale)
+    printFieldAttributes(fieldAttributes, plants)
 
     #plantA
-    print("Salicorne's new parameters\n")
+    print("{plant}'s new parameters\n".format(plant=list(plants.keys())[0]))
     askParameters(paramsA, epsilon)
 
     # plantB
-    print("\nObione's new parameters\n")
+    print("\n{plant}'s new parameters\n".format(plant=list(plants.keys())[1]))
     askParameters(paramsB, epsilon)
 
 
-def applyEvent(events, fieldAttributes, croissanceGenerale, season):
+def applyEvent(events, fieldAttributes, plants, season):
     """Tests *events* eligible to *season* and chooses a random season,
-    applying the effects to the *fieldAttributes* and the croissanceGenerale"""
+    applying the effects to the *fieldAttributes* and the individual *plants* growing"""
     
     possibleEvents = [event for event in events if season in event.seasons]
     event = random.choice(possibleEvents)
+    print("\n")
 
-    fieldAttributes, croissanceGenerale = event(fieldAttributes, croissanceGenerale)
+    fieldAttributes, plants = event(fieldAttributes, plants)
     fieldAttributes['salinity'] = 100 - fieldAttributes['water']
 
     print("New field Attributes:\n")
-    printFieldAttributes(fieldAttributes, croissanceGenerale)
-    return fieldAttributes, croissanceGenerale
+    printFieldAttributes(fieldAttributes, plants)
+    return fieldAttributes, plants
 
 
-def printGrowing(croissanceA, croissanceB):
+def printGrowing(croissanceA, croissanceB, plants):
     """Prints out how much plant did grow and which case to add (int)"""
 
-    print("Salicorne grandit de " + str(round(croissanceA, 2)))
+    print("\n{plant} grandit de ".format(plant=list(plants.keys())[0]) + str(round(croissanceA, 2)))
     print("Taille à rajouter: " + str(round(mapRange(croissanceA, 0, 100, 0, 4))))
 
-    print("\nObione grandit de " + str(round(croissanceB, 2)))
+    print("\n{plant} grandit de ".format(plant=list(plants.keys())[1]) + str(round(croissanceB, 2)))
     print("Taille à rajouter: " + str(round(mapRange(croissanceB, 0, 100, 0, 4))))
     print("\n------------------------------\n")
 

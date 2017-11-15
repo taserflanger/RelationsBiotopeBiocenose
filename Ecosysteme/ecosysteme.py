@@ -6,14 +6,15 @@ from assets.gamePlay import applyEvent, initParams, mapRange, printFieldAttribut
 from assets.mechanics.mapRange import mapRange
 from itertools import cycle
 
-#Initialise les surfaces 
+#Initialise les surfaces
 surfaceA = 0
 surfaceB = 0
 
 #Initialise les caractéristiques du sansouire et des plantes
-fieldAttributes = {'temp': 20, 'sun': 2, 'water': 0, 'salinity': 0}
+fieldAttributes = {'temp': 20, 'sun': 2, 'water': 50, 'salinity': 50}
 paramsA = initParams(fieldAttributes)
 paramsB = initParams(fieldAttributes)
+plants = {"Salicorne": 0, "Obione": 0}
 
 #Initialise un générateur de saisons
 seasons = ['winter', 'spring', 'summer', 'automn']
@@ -24,7 +25,6 @@ events = [snow, mosquito, orage, sunHeat, overflowing]
 
 #Variables générales
 isWinner = False
-croissanceGenerale = random.randint(-10, 10)
 epsilon = 10
 turn = 0
 
@@ -35,20 +35,21 @@ while not isWinner:
         season = next(SeasonGenerator)
 
     #Demande les nouvelles valeurs
-    newRound(fieldAttributes, croissanceGenerale, paramsA, paramsB, epsilon, season)
+    newRound(fieldAttributes, plants, paramsA, paramsB, epsilon, season)
 
     #Applique l'événement
-    fieldAttributes, croissanceGenerale = applyEvent(events, fieldAttributes, croissanceGenerale, season)
+    fieldAttributes, plants = applyEvent(events, fieldAttributes, plants, season)
 
     #calcule les croissances des plantes
-    croissanceA = calculateCroissance(paramsA, fieldAttributes, croissanceGenerale, mapRange, 'sansouire')
-    croissanceB = calculateCroissance(paramsB, fieldAttributes, croissanceGenerale, mapRange, 'obione')
+    croissanceA = calculateCroissance(paramsA, fieldAttributes, plants[list(plants.keys())[0]], mapRange, list(plants.keys())[0])
+    croissanceB = calculateCroissance(paramsB, fieldAttributes, plants[list(plants.keys())[1]], mapRange, list(plants.keys())[1])
 
     #affiche la croissance
-    printGrowing(croissanceA, croissanceB)
+    printGrowing(croissanceA, croissanceB, plants)
 
     #Attent le prochain tour (en modifiant la croissance)
-    croissanceGenerale += random.randint(-5, 5)
+    for plant in plants:
+        plants[plant] +=random.randint(5, 10)
     input("Press any key to continue...")
 
     #Clear + teste si il y a un gagnant + change le nombre de tours
