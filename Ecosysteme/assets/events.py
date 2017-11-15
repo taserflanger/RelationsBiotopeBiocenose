@@ -72,3 +72,6 @@ def southernWind(fieldAttributes, plant_dict):
     return fieldAttributes, plant_dict
 southernWind.seasons = ['spring', 'summer', 'automn', 'winter']
 
+#Ne pas oublier d'ajouter chaque nouvel évènement dans la liste
+def listEvents():
+    return [snow, mosquito, orage, sunHeat, overflowing, gathering, trampling, pollution, southernWind]

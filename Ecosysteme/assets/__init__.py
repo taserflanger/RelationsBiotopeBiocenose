@@ -1,17 +1,8 @@
-"""Assets for Ecosysteme"""
-__all__ = []
+"""Assets for Ecocsystème, including game play and game mechanics function"""
 
-import pkgutil
-import inspect
+import assets.mechanics
+import assets.events
+from assets.gameplay import gameplay
 
-for loader, name, is_pkg in pkgutil.walk_packages(__path__):
-    module = loader.find_module(name).load_module(name)
 
-    for name, value in inspect.getmembers(module):
-        if name.startswith('__'):
-            continue
-
-        globals()[name] = value
-        __all__.append(name)
-
-__all__.append("mechanics")
+__all__ = ['events', 'gameplay', 'mechanics']

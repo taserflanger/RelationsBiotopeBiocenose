@@ -1,16 +1,6 @@
 """Game Mechanics"""
 
-__all__ = []
+from .calculate_croissance import calculate_croissance
+from .map_range import map_range
 
-import pkgutil
-import inspect
-
-for loader, name, is_pkg in pkgutil.walk_packages(__path__):
-    module = loader.find_module(name).load_module(name)
-
-    for name, value in inspect.getmembers(module):
-        if name.startswith('__'):
-            continue
-
-        globals()[name] = value
-        __all__.append(name)
+__all__ = ['calculate_croissance', 'map_range']
