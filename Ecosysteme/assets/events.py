@@ -20,10 +20,12 @@ def snow(field_attributes, plant_dict):
 
     print("Il neige... Il fait froid, on ne voit pas le soleil!\n")
     field_attributes['temp'] = 0 - random.randint(0, 3)
-    field_attributes['sun'] = random.randint(0, 10)
+    field_attributes['sun'] = random.randint(15, 35)
     field_attributes['water'] += random.randint(0, 2)
+    for plant in plant_dict:
+        plant_dict[plant] -= random.randint(5, 10)
     return field_attributes, plant_dict
-snow.seasons = {'winter': 70}
+snow.seasons = {'winter': 40}
 
 def mosquito(field_attributes, plant_dict):
     """
@@ -74,7 +76,7 @@ def orage(field_attributes, plant_dict):
     field_attributes['sun'] = 0 + random.randint(0, 5)
     field_attributes['water'] = 50 + random.randint(-10, 10)
     return field_attributes, plant_dict
-orage.seasons = {'winter':50, 'spring':50, 'summer':30, 'automn':70}
+orage.seasons = {'spring':40, 'summer':50, 'automn':70}
 
 def sun_heat(field_attributes, plant_dict):
     """
@@ -96,9 +98,9 @@ def sun_heat(field_attributes, plant_dict):
     print("C'est la canicule...\nQue de chaleur et de soleil!\n")
     field_attributes['temp'] = 30 + random.randint(-5, 5)
     field_attributes['sun'] = 60 + random.randint(-5, 5)
-    field_attributes['water'] -= random.randint(0, 5)
+    field_attributes['water'] -= random.randint(15, 25)
     return field_attributes, plant_dict
-sun_heat.seasons = {'summer':50}
+sun_heat.seasons = {'summer':60}
 
 def overflowing(field_attributes, plant_dict):
     """
@@ -117,10 +119,10 @@ def overflowing(field_attributes, plant_dict):
     """
 
     print("Oh non! il y a des inondations!\nLe niveau d'eau va monter\n")
-    field_attributes['sun'] = 5 + random.randint(0, 10)
+    field_attributes['sun'] -= 10 + random.randint(0, 10)
     field_attributes['water'] = 80 + random.randint(0, 20)
     return field_attributes, plant_dict
-overflowing.seasons = {'automn':40}
+overflowing.seasons = {'automn':60}
 
 def gathering(field_attributes, plant_dict):
     """
@@ -147,7 +149,7 @@ def gathering(field_attributes, plant_dict):
     for plant in plant_dict:
         plant_dict[plant] -= random.randint(0, 5)
     return field_attributes, plant_dict
-gathering.seasons = {'spring': 40, 'summer': 20}
+gathering.seasons = {'spring': 40, 'summer': 40}
 
 def trampling(field_attributes, plant_dict):
     """
@@ -173,7 +175,7 @@ def trampling(field_attributes, plant_dict):
             plant_dict[plant] -= random.randint(0, 15)
 
     return field_attributes, plant_dict
-trampling.seasons = {'spring':20, 'summer':30}
+trampling.seasons = {'spring':45, 'summer':50}
 
 def pollution(field_attributes, plant_dict):
     """
@@ -218,11 +220,14 @@ def southern_wind(field_attributes, plant_dict):
     Le vent souffle fort! C'est le grec!
     L'eau salée rentre dans les étangs\n
         """)
-    field_attributes['water'] -= random.randint(5, 15)
-    for plant in plant_dict:
-        plant_dict[plant] -= random.randint(5, 10)
+    field_attributes['water'] -= random.randint(5, 20)
     return field_attributes, plant_dict
-southern_wind.seasons = {'spring':20, 'summer':30, 'automn':60, 'winter':40}
+southern_wind.seasons = {'spring':50, 'summer':30, 'automn':60, 'winter':40}
+
+def northern_wind(field_attributes, plant_dict):
+    field_attributes['water'] += random.randint(5, 20)
+    return field_attributes, plant_dict
+northern_wind.seasons = {'spring':50, 'summer':30, 'automn':60, 'winter':45}
 
 #Ne pas oublier d'ajouter chaque nouvel évènement dans la liste
 def list_events():
@@ -236,5 +241,6 @@ def list_events():
         gathering,
         trampling,
         pollution,
-        southern_wind
+        southern_wind,
+        northern_wind
         ]
