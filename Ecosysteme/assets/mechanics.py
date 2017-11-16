@@ -18,7 +18,18 @@ def ask_parameters(params, epsilon):
     for key in params.keys():
         test = False
         while not test:
-            val = float(input(key + ": {current}=> ".format(current=params[key])))
+            is_valid = False
+            while not is_valid:
+                val = input(key + ": {current}=> ".format(current=params[key]))
+                if val == "":
+                    val = params[key]
+                    is_valid = True
+                else:
+                    try:
+                        params[key] = float(val)
+                        is_valid = True
+                    except ValueError:
+                        print("Should be a number")
             test = test_interval(params[key], val, epsilon)
             if test:
                 params[key] = val
