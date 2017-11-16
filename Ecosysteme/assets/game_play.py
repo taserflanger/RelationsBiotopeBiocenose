@@ -47,22 +47,22 @@ def apply_event(events, field_attributes, plants, season):
     print_field_attributes(field_attributes, plants)
     return field_attributes, plants
 
-def print_growing(croissance_a, croissance_b, plants, surface_a, surface_b):
+def print_growing(croissance_a, croissance_b, plants, surfaces):
     """Prints out how much plant did grow and which case to add (int)"""
 
     print("\n{plant} grandit de ".format(
         plant=list(plants.keys())[0])
           + str(round(croissance_a, 2)))
     croissance = round(map_range(croissance_a, 0, 100, 0, 4))
-    surface_a += croissance
+    surfaces[0] += croissance
     print("Taille à rajouter: " + str(croissance))
 
     print("\n{plant} grandit de ".format(
         plant=list(plants.keys())[1])
           + str(round(croissance_b, 2)))
     croissance = round(map_range(croissance_b, 0, 100, 0, 4))
-    surface_b += croissance
+    surfaces[1] += croissance
     print("Taille à rajouter: " + str(croissance))
     print("\n------------------------------\n")
 
-    return surface_a, surface_b
+    return surfaces
