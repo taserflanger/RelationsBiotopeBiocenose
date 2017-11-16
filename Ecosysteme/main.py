@@ -19,7 +19,7 @@ SEASONS = ['winter', 'spring', 'summer', 'automn']
 SEASON_GENERATOR = cycle(SEASONS)
 
 #Liste des events, chaque élément est une fonction définie dans assets.events
-EVENTS_LIST = events.listEvents()
+EVENTS_LIST = events.list_events()
 
 #Variables générales
 IS_WINNER = False

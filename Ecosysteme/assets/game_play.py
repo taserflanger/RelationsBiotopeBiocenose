@@ -35,8 +35,9 @@ def apply_event(events, field_attributes, plants, season):
     """Tests *events* eligible to *season* and chooses a random season,
     applying the effects to the *field_attributes* and the individual *plants* growing"""
 
-    possible_events = [event for event in events if season in event.seasons]
-    event = random.choice(possible_events)
+    possible_events = [event for event in events if season in list(event.seasons.keys())]
+    probability_list = [event.seasons[season] for event in possible_events]
+    [event] = random.choices(possible_events, weights=probability_list, k=1)
     print("\n")
 
     field_attributes, plants = event(field_attributes, plants)
