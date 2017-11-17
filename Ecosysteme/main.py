@@ -25,7 +25,7 @@ def main():
 
     #Variables générales
     is_winner = False
-    epsilon = 10
+    epsilon = 20
     turn = 0
 
     # Main Loop
