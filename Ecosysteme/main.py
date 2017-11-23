@@ -66,7 +66,7 @@ def main():
 
         #Attent le prochain tour (en modifiant la croissance)
         for plant in plants:
-            plants[plant] += random.randint(5, 10)
+            plants[plant] += random.randint(-5, 2)
         input("Press any key to continue...")
 
         #Clear + teste si il y a un gagnant + change le nombre de tours

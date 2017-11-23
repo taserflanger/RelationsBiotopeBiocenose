@@ -40,7 +40,7 @@ def apply_event(events, field_attributes, plants, season):
     [event] = random.choices(possible_events, weights=probability_list, k=1)
     print("\n")
 
-    field_attributes, plants = event(field_attributes, plants)
+    field_attributes, plants, season = event(field_attributes, plants, season)
     field_attributes['salinity'] = 100 - field_attributes['water']
 
     print("New field Attributes:\n")
@@ -53,14 +53,14 @@ def print_growing(croissance_a, croissance_b, plants, surfaces):
     print("\n{plant} grandit de ".format(
         plant=list(plants.keys())[0])
           + str(round(croissance_a, 2)))
-    croissance = round(map_range(croissance_a, 0, 100, 0, 4))
+    croissance = round(map_range(croissance_a, 0, 100, -4, 4))
     surfaces[0] += croissance
     print("Taille à rajouter: " + str(croissance))
 
     print("\n{plant} grandit de ".format(
         plant=list(plants.keys())[1])
           + str(round(croissance_b, 2)))
-    croissance = round(map_range(croissance_b, 0, 100, 0, 4))
+    croissance = round(map_range(croissance_b, 0, 100, -4, 4))
     surfaces[1] += croissance
     print("Taille à rajouter: " + str(croissance))
     print("\n------------------------------\n")
