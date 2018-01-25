@@ -206,22 +206,24 @@ public class GameController : MonoBehaviour {
 	}
 
 	void SetEpisodeAimRange() {
+		float current_salinity = mapProperties.Values [0];
+		float current_water = mapProperties.Values [1];
+		float current_sunshine = mapProperties.Values [2];
+		float current_temperature = mapProperties.Values [3];
+
 		episodeAimRange.Clear ();
 		if (episode == Episode.mosquito) {
 			episodeAimRange.Add ("Growing", new float[]{ 0.5f, 0.7f });
 			} 
 		else if (episode == Episode.none){
 			if (weather = Weather.rainy){
-				episodeAimRange.Add ("Water", new float[] { 0.5f, 0.9f})
+				episodeAimRange.Add ("Water", new float[] { 0.5f, 0.9f});
 			}
 			if (weather == Weather.sunny){
-				episodeAimRange.Add ("Sunshine", new float[] {0.6f, 0.9f})
-			}
-			if (weather == Weather.windy){
-				episodeAimRange.Add ("Temperature", new float[] {current_temperature - 0.1f})
-			}
+				episodeAimRange.Add ("Sunshine", new float[] {0.6f, 0.9f});
+			}			
 			if (weather == Weather.cloudy){
-				episodeAimRange.Add ("Sunshine", new float[] {0.3, 0.6})
+				episodeAimRange.Add ("Sunshine", new float[] {0.3, 0.6});
 			}
 		}
 		else if (episode == Episode.orage) {
@@ -245,17 +247,21 @@ public class GameController : MonoBehaviour {
 			}
 		} else if (episode == Episode.sun_heat) {
 			episodeAimRange.Add ("Sunshine", new float[] { 0.8f, 1.0f });
-			float current_water = mapProperties.Values [1];
-			episodeAimRange.Add ("Water", new float[] { current_water 0.3f, current_water 0.1f });
+			episodeAimRange.Add ("Water", new float[] { 0.0f, 0.2f });
 
 		} else if (episode == Episode.overflowing) {
 			episodeAimRange.Add ("Sunshine", new float[] { 0.2f, 0.4f });
 			episodeAimRange.Add ("Water", new float[] { 0.8f, 0.9f });
 
 		} else if (episode == Episode.gathering) {
-			float current_sunshine = mapProperties.Values [2];
+			if(season == Season.summer){
+				episodeAimRange.Add ("Sunshine", new float[] { 0.8f, 0.9f });
+				episodeAimRange.Add ("Growing", new float[] { 0.8f, 0.9f });
+			}
+			else{
 			episodeAimRange.Add ("Sunshine", new float[] { current_sunshine + 0.1f, current_sunshine + 0.2f });
 			episodeAimRange.Add ("Growing", new float[] { 0.8f, 0.9f });
+			}
 
 		} else if (episode == Episode.trampling) {
 			//In this event, salicorne, has a lower growing
@@ -320,59 +326,107 @@ public class GameController : MonoBehaviour {
 			if (weather == Weather.rainy){
 				probabilities [(int)Episode.orage] = 20f;
 				probabilities [(int)Episode.none] = 50f;
-				probabilities[(int)Episode.snow] = 10f
-				probabilities[(int)Episode.pollution] = 15f 
+				probabilities[(int)Episode.snow] = 10f;
+				probabilities[(int)Episode.pollution] = 15f;
 				probabilities [(int)Episode.southern_wind] = 40f;
-				probabilities [(int)Episode.storm_southern_wind] = 25f
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.overflowing] = 5f;
 
 			}
-			
 			else if (weather == Weather.sunny){
 				probabilities [(int)Episode.none] = 50f;
 				probabilities [(int)Episode.northern_wind] = 45f;
-				probabilities [(int)Episode.storm_northern_wind] = 20f
-				probabilities [(int)Episode.trampling] = 30f
+				probabilities [(int)Episode.storm_northern_wind] = 20f;
+				probabilities [(int)Episode.trampling] = 30f;
 			}
 
 			else if (weather == Weather.cloudy){
 				probabilities [(int)Episode.none] = 50f;
 				probabilities [(int)Episode.fog] = 30f;
-				probabilities [(int)Episode.storm_southern_wind] = 25f
-				probabilities [(int)Episode.trampling] = 25f
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.trampling] = 25f;
+				probabilities[(int)Episode.snow] = 10f;
 
 			}
 
 		} else if (season == Season.spring) {
 			if (weather == Weather.rainy){
 				probabilities [(int)Episode.none] = 50f;
-				probabilities [(int)Episode.northern_wind]= 55f
+				probabilities [(int)Episode.southern_wind]= 55f;
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.mosquito] = 5f;
+				probabilities [(int)Episode.orage] = 20f;
+				probabilities [(int)Episode.pollution] = 10f;
 
 			}
 			else if (weather == Weather.sunny){
 				probabilities [(int)Episode.none] = 50f;
-				probabilities [(int)Episode.mosquito] = 10f
+				probabilities [(int)Episode.mosquito] = 10f;
+				probabilities [(int)Episode.trampling] = 25f;
+				probabilities [(int)Episode.storm_northern_wind] = 20f;
+				probabilities [(int)Episode.gathering] = 10f;
 
 			}
 			else if (weather == Weather.cloudy){
 				probabilities [(int)Episode.none] = 50f;
 				probabilities [(int)Episode.fog] = 30f;
-				probabilities [(int)Episode.southern_wind]=45f
-			
+				probabilities [(int)Episode.southern_wind]=45f;
+				probabilities [(int)Episode.mosquito] = 10f;
+				probabilities [(int)Episode.trampling] = 25f;
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.orage] = 10f;
+
 			}
 
-			probabilities [(int)Episode.mosquito] = 30f;
-			probabilities [(int)Episode.orage] = 40f;
-			probabilities [(int)Episode.gathering] = 40f;
-			probabilities [(int)Episode.pollution] = 10f;
 		} else if (season == Season.summer) {
-			probabilities [(int)Episode.sun_heat] = 50f;
-			probabilities [(int)Episode.pollution] = 20f;
+			if (weather == Weather.rainy){
+				probabilities [(int)Episode.pollution] = 20f;
+				probabilities [(int)Episode.none] = 50f;
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.southern_wind]= 55f;
+				probabilities [(int)Episode.orage] = 35f;
+
+			}
+			else if (weather == Weather.sunny){
+				probabilities [(int)Episode.sun_heat] = 50f;
+				probabilities [(int)Episode.none] = 50f;
+				probabilities [(int)Episode.storm_northern_wind] = 20f;
+				probabilities [(int)Episode.northern_wind]=45f;
+				probabilities [(int)Episode.gathering] = 10f;
+
+			}
+			else if (weather == Weather.cloudy){
+				probabilities [(int)Episode.none] = 50f;
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.southern_wind]= 55f;
+				probabilities [(int)Episode.fog] = 30f;
+
+			}
 		} else if (season == Season.automn) {
-			probabilities [(int)Episode.overflowing] = 40f;
-			probabilities [(int)Episode.pollution] = 30f;
+			if (weather == Weather.rainy){
+				probabilities [(int)Episode.overflowing] = 40f;
+				probabilities [(int)Episode.pollution] = 30f;
+				probabilities [(int)Episode.none] = 50f;
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.southern_wind]= 55f;
+				probabilities [(int)Episode.orage] = 35f;
+
+			}
+			else if (weather == Weather.sunny){
+				probabilities [(int)Episode.none] = 50f;
+				probabilities [(int)Episode.storm_northern_wind] = 20f;
+				probabilities [(int)Episode.northern_wind]=45f;
+				
+			}
+			else if (weather == Weather.cloudy){
+				probabilities [(int)Episode.none] = 50f;
+				probabilities [(int)Episode.storm_southern_wind] = 25f;
+				probabilities [(int)Episode.southern_wind]= 55f;
+				probabilities [(int)Episode.fog] = 30f;
+				probabilities [(int)Episode.orage] = 30f;
+				
+			}
 		}
-		else if (weather == rainy){
-			probabilities [(int)]
 		}
 		List<float> probList = probabilities.ToList ();
 		float summation = probList.Sum ();
