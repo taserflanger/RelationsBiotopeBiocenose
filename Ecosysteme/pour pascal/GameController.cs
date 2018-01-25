@@ -218,9 +218,40 @@ public class GameController : MonoBehaviour {
 		else if (episode == Episode.none){
 			if (weather = Weather.rainy){
 				episodeAimRange.Add ("Water", new float[] { 0.5f, 0.9f});
+				if(season == Season.winter){
+					episodeAimRange.Add ("Temperature", new float[] {0.1f, 0.2f)};
+				}
+				else if (season == Season.spring){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.7});
+				}
+				else if (season == Season.summer){
+					episodeAimRange.Add ("Temperature", new float[] {0.6, 0.85});
+					episodeAimRange.Add ("Salinity", new float[] {0.2, 0.4});
+				}
+				else if(season == Season.automn){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.7});
+				}
 			}
 			if (weather == Weather.sunny){
 				episodeAimRange.Add ("Sunshine", new float[] {0.6f, 0.9f});
+				if(season == Season.winter){
+					episodeAimRange.Add ("Temperature", new float[] {0.2f, 0.25f)};
+				}
+				else if (season == Season.spring){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.7});
+				}
+				else if (season == Season.summer){
+					episodeAimRange.Add ("Temperature", new float[] {0.6, 0.85});
+					episodeAimRange.Add ("Salinity", new float[] {0.2, 0.4});
+				}
+				else if(season == Season.automn){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.7});
+				}
+
 			}			
 			if (weather == Weather.cloudy){
 				episodeAimRange.Add ("Sunshine", new float[] {0.3, 0.6});
@@ -230,6 +261,7 @@ public class GameController : MonoBehaviour {
 			if (season == Season.winter) {
 				episodeAimRange.Add ("Sunshine", new float[] { 0.0f, 0.05f });
 				episodeAimRange.Add ("Water", new float[] { 0.5f, 0.9f });
+				episodeAimRange.Add ("Temperature", new float[] { 0.1f, 0.3f });
 				episodeAimRange.Add ("Salinity", new float[] { 0.2f, 0.5f });
 				//Debug.Log ("Snow Storm");
 			} else if (season == Season.automn) {
