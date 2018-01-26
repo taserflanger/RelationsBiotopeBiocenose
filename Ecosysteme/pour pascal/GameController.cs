@@ -207,6 +207,7 @@ public class GameController : MonoBehaviour {
 
 	void SetEpisodeAimRange() {
 		float current_salinity = mapProperties.Values [0];
+		// la salinité ne descend pas en dessous de 0.5 en été
 		float current_water = mapProperties.Values [1];
 		float current_sunshine = mapProperties.Values [2];
 		float current_temperature = mapProperties.Values [3];
@@ -216,6 +217,7 @@ public class GameController : MonoBehaviour {
 			episodeAimRange.Add ("Growing", new float[]{ 0.5f, 0.7f });
 			} 
 		else if (episode == Episode.none){
+			episodeAimRange.Add ("Growing", new float[] { 1f, 1f });
 			if (weather = Weather.rainy){
 				episodeAimRange.Add ("Water", new float[] { 0.5f, 0.9f});
 				if(season == Season.winter){
@@ -223,11 +225,10 @@ public class GameController : MonoBehaviour {
 				}
 				else if (season == Season.spring){
 					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
-					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.7});
 				}
 				else if (season == Season.summer){
 					episodeAimRange.Add ("Temperature", new float[] {0.6, 0.85});
-					episodeAimRange.Add ("Salinity", new float[] {0.2, 0.4});
+					episodeAimRange.Add ("Salinity", new float[] {0.75, 0.85});
 				}
 				else if(season == Season.automn){
 					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
@@ -244,8 +245,8 @@ public class GameController : MonoBehaviour {
 					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.7});
 				}
 				else if (season == Season.summer){
-					episodeAimRange.Add ("Temperature", new float[] {0.6, 0.85});
-					episodeAimRange.Add ("Salinity", new float[] {0.2, 0.4});
+					episodeAimRange.Add ("Temperature", new float[] {0.75, 0.9});
+					episodeAimRange.Add ("Salinity", new float[] {0.7, 0.9});
 				}
 				else if(season == Season.automn){
 					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
@@ -255,13 +256,27 @@ public class GameController : MonoBehaviour {
 			}			
 			if (weather == Weather.cloudy){
 				episodeAimRange.Add ("Sunshine", new float[] {0.3, 0.6});
+				if(season == Season.winter){
+					episodeAimRange.Add ("Temperature", new float[] {0.1f, 0.2f)};
+				}
+				else if (season == Season.spring){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.55});
+				}
+				else if (season == Season.summer){
+					episodeAimRange.Add ("Temperature", new float[] {0.6, 0.85});
+					episodeAimRange.Add ("Salinity", new float[] {0.7, 0.9});
+				}
+				else if(season == Season.automn){
+					episodeAimRange.Add ("Temperature", new float[] {0.25, 0.5});
+				}
 			}
 		}
 		else if (episode == Episode.orage) {
+			episodeAimRange.Add ("Growing", new float[] { 1f, 1f });
 			if (season == Season.winter) {
 				episodeAimRange.Add ("Sunshine", new float[] { 0.0f, 0.05f });
 				episodeAimRange.Add ("Water", new float[] { 0.5f, 0.9f });
-				episodeAimRange.Add ("Temperature", new float[] { 0.1f, 0.3f });
+				episodeAimRange.Add ("Temperature", new float[] { 0.1f, 0.25f });
 				episodeAimRange.Add ("Salinity", new float[] { 0.2f, 0.5f });
 				//Debug.Log ("Snow Storm");
 			} else if (season == Season.automn) {
@@ -275,13 +290,19 @@ public class GameController : MonoBehaviour {
 			} else if (season == Season.summer) {
 				episodeAimRange.Add ("Sushine", new float[] { 0.0f, 0.1f });
 				episodeAimRange.Add ("Water", new float[] { 0.6f, 0.9f });
-				episodeAimRange.Add ("Salinity", new float[] { 0.2f, 0.3f });
+				episodeAimRange.Add ("Salinity", new float[] { 0.5f, 0.6f });
+				episodeAimRange.Add ("Temperature", new float[] { 0.65f, 0.8f });
+
 			}
 		} else if (episode == Episode.sun_heat) {
-			episodeAimRange.Add ("Sunshine", new float[] { 0.8f, 1.0f });
-			episodeAimRange.Add ("Water", new float[] { 0.0f, 0.2f });
+			// événement extrème
+			episodeAimRange.Add ("Sunshine", new float[] { 0.8f, 1.2f });
+			episodeAimRange.Add ("Water", new float[] { -0.2f, 0.2f });
+			episodeAimRange.Add ("Temperature", new float[] { 0.95f, 1.1f });
+			episodeAimRange.Add ("Growing", new float[] { 0.7f, 0.9f });
 
-		} else if (episode == Episode.overflowing) {
+		}
+		else if (episode == Episode.overflowing) {
 			episodeAimRange.Add ("Sunshine", new float[] { 0.2f, 0.4f });
 			episodeAimRange.Add ("Water", new float[] { 0.8f, 0.9f });
 
@@ -298,11 +319,14 @@ public class GameController : MonoBehaviour {
 		} else if (episode == Episode.trampling) {
 			//In this event, salicorne, has a lower growing
 			episodeAimRange.Add ("Sunshine", new float[] { 0.5f, 0.8f });
+			episodeAimRange.Add ("Growing", new float[] { 0.7f, 0.9f });
+
 
 		} else if (episode == Episode.pollution) {
 			episodeAimRange.Add ("Growing", new float[] { 0.3f, 0.6f });
 
-		} else if (episode == Episode.fog) {
+		} else if (episo de == Episode.fog) {
+			episodeAimRange.Add ("Growing", new float[] { 1f, 1f });
 			if (season == winter) {
 				episodeAimRange.Add ("Water", new float[] { current_water + 0.2f, current_water + 0.3f });}
 			else if (season == spring) {
@@ -312,23 +336,56 @@ public class GameController : MonoBehaviour {
 				episodeAimRange.Add ("Water", new float[] { 0.5f, 0.8f });
 			}
 			else if (season == automn) {
-				episodeAimRange.Add ("water", new float[] { current_water + 0.3})
+				episodeAimRange.Add ("water", new float[] { current_water + 0.3});
 			}
-			float current_sun = mapProperties.Values [2];
-			episodeAimRange.Add ("Sunshine", new float[] { current_sunshine - 0.3f, current_sun - 0.2f });
+			episodeAimRange.Add ("Sunshine", new float[] { current_sunshine - 0.3f, current_sunshine - 0.2f });
 		}
 		else if (episode == Episode.northern_wind) {
+			episodeAimRange.Add ("Growing", new float[] { 1f, 1f });
 			episodeAimRange.Add ("Sunshine", new float[] { 0.7f, 0.9f });
-			episodeAimRange.Add ("Salinity", new float[] { 0.3f, 0.6f})
+			if(season == Season.winter){
+					episodeAimRange.Add ("Salinity", new float[] { 0.3f, 0.6f})
+					episodeAimRange.Add ("Temperature", new float[] {0.1f, 0.25f)};
+				}
+				else if (season == Season.spring){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] { 0.3f, 0.6f})
+				}
+				else if (season == Season.summer){
+					episodeAimRange.Add ("Temperature", new float[] {0.8, 0.9});
+					episodeAimRange.Add ("Salinity", new float[] {0.5, 0.7});
+				}
+				else if(season == Season.automn){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.6});
+				}
 		}
 		else if (episode == Episode.southern_wind) {
+			episodeAimRange.Add ("Growing", new float[] { 1f, 1f });
 			episodeAimRange.Add ("Sunshine", new float[] { 0.4f, 0.6f });
 			episodeAimRange.Add ("Salinity", new float[] { 0.6f, 0.8f})
+			if(season == Season.winter){
+					episodeAimRange.Add ("Salinity", new float[] { 0.3f, 0.6f})
+					episodeAimRange.Add ("Temperature", new float[] {0.05f, 0.25f)};
+				}
+				else if (season == Season.spring){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] { 0.3f, 0.6f})
+				}
+				else if (season == Season.summer){
+					episodeAimRange.Add ("Temperature", new float[] {0.8, 0.9});
+					episodeAimRange.Add ("Salinity", new float[] {0.5, 0.7});
+				}
+				else if(season == Season.automn){
+					episodeAimRange.Add ("Temperature", new float[] {0.3, 0.6});
+					episodeAimRange.Add ("Salinity", new float[] {0.4, 0.6});
 		}
 		else if (episode == Episode.snow) {
 			episodeAimRange.Add ("Sunshine", new float[] { 0.5f, 0.6f})
 			episodeAimRange.Add ("Water", new float[] {current_water + 0.1f})
 			episodeAimRange.Add ("Temperature", new float[] {0f, 0.12f})
+			episodeAimRange.Add ("Growing", new float[] { 0.8f, 0.9f });
+
 		}
 		else if(episode == Episode.storm_northern_wind){
 			episodeAimRange.Add ("Sunshine", new float[] { 0.8f, 1.0f });
@@ -453,8 +510,8 @@ public class GameController : MonoBehaviour {
 			else if (weather == Weather.cloudy){
 				probabilities [(int)Episode.none] = 50f;
 				probabilities [(int)Episode.storm_southern_wind] = 25f;
-				probabilities [(int)Episode.southern_wind]= 55f;
-				probabilities [(int)Episode.fog] = 30f;
+				probabilities [(int)Episode.southern_wind]= 45f;
+				probabilities [(int)Episode.fog] = 35f;
 				probabilities [(int)Episode.orage] = 30f;
 				
 			}
